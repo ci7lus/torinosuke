@@ -1,0 +1,10 @@
+@import '../node_modules/bulma/css/bulma.min.css';
+
+.app-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttons:not(:last-child) {
+    margin-bottom: unset;
+}
