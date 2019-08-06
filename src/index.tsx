@@ -89,17 +89,23 @@ const definedApps: { name: string; ck: string; cs: string; official: boolean; de
 const App = () => {
     const [message, setMessage] = useState("")
     const [messageType, setMessageType] = useState("")
+
     const [useXAuth, setUseXAuth] = useState(false)
+
     const [consumerKey, setConsumerKey] = useState("")
     const [consumerSecret, setConsumerSecret] = useState("")
+
     const [isConsumerLocked, setIsConsumerLocked] = useState(false)
     const [isResetLocked, setIsResetLocked] = useState(false)
     const [isDefinedApp, setIsDefinedApp] = useState(false)
+
     const [screenName, setScreenName] = useState("")
     const [password, setPassword] = useState("")
     const [pin, setPin] = useState("")
+
     const [OAuthToken, setOAuthToken] = useState("")
     const [OAuthTokenSecret, setOAuthTokenSecret] = useState("")
+
     const [accessToken, setAccessToken] = useState("")
     const [accessTokenSecret, setAccessTokenSecret] = useState("")
 
@@ -428,6 +434,15 @@ const App = () => {
                                     </div>
                                 </div>
                             </div>
+                            {0 < OAuthToken.length && (
+                                <a
+                                    className={`button is-primary ${0 < accessToken.length && "is-disabled"}`}
+                                    href={`https://api.twitter.com/oauth/authorize?oauth_token=${OAuthToken}`}
+                                    target="_blank"
+                                >
+                                    認証用リンク
+                                </a>
+                            )}
                         </form>
                     </div>
                 </div>
