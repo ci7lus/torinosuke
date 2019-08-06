@@ -155,7 +155,7 @@ const App = () => {
                     setMessageType("danger")
                 }
             } else {
-                setMessage(`認証に失敗しました: ${r.data || r.status}`)
+                setMessage(`認証に失敗しました: ${JSON.stringify(r.data) || r.status}`)
                 setMessageType("danger")
             }
             setIsConsumerLocked(false)
@@ -184,7 +184,7 @@ const App = () => {
                     setMessageType("danger")
                 }
             } else {
-                setMessage(`認証ページ情報の取得に失敗しました: ${r.data || r.status}`)
+                setMessage(`認証ページ情報の取得に失敗しました: ${JSON.stringify(r.data) || r.status}`)
                 setMessageType("danger")
                 setIsConsumerLocked(false)
             }
@@ -236,7 +236,7 @@ const App = () => {
                 setMessageType("danger")
             }
         } else {
-            setMessage(`認証に失敗しました: ${r.data || r.status}`)
+            setMessage(`認証に失敗しました: ${JSON.stringify(r.data) || r.status}`)
             setMessageType("danger")
         }
         setIsResetLocked(false)
@@ -414,12 +414,14 @@ const App = () => {
                                                         }
                                                     }}
                                                 >
-                                                    {app.isPin && <span className="tag is-success is-normal">PIN</span>}{" "}
+                                                    {app.name}{" "}
+                                                    {app.isPin && (
+                                                        <span className="tag is-success is-normal is-right">PIN</span>
+                                                    )}{" "}
                                                     {app.official && <span className="tag is-link is-normal">Official</span>}{" "}
                                                     {app.deprecated && (
                                                         <span className="tag is-danger is-normal">deprecated</span>
-                                                    )}{" "}
-                                                    {app.name}
+                                                    )}
                                                 </a>
                                             ))}
                                         </div>
