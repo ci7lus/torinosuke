@@ -78,13 +78,14 @@ const App = () => {
                 },
             })
             if (r.status == 200) {
-                const result = new Map(
+                const result: Map<string, string> = new Map(
                     r.data.split("&").map((datum: string) => {
                         return datum.split("=")
                     })
                 )
-                const token = result["oauth_token"]
-                const secret = result["oauth_token_secret"]
+                console.log(result)
+                const token = result.get("oauth_token")
+                const secret = result.get("oauth_token_secret")
                 if (token && secret) {
                     setOAuthToken(token)
                     setOAuthTokenSecret(secret)
