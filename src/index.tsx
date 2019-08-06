@@ -33,7 +33,7 @@ const definedApps: { name: string; ck: string; cs: string; official: boolean; de
         ck: "IQKbtAYlXLripLGPWd0HUA",
         cs: "GgDYlkSvaPxGxC4X8liwpUoqKwwr3lCADbz8A7ADU",
         official: true,
-        deprecated: true,
+        deprecated: false,
         isPin: false,
     },
     {
@@ -41,7 +41,7 @@ const definedApps: { name: string; ck: string; cs: string; official: boolean; de
         ck: "yT577ApRtZw51q4NPMPPOQ",
         cs: "3neq3XqN5fO3obqwZoajavGFCUrC42ZfbrLXy5sCv8",
         official: true,
-        deprecated: true,
+        deprecated: false,
         isPin: false,
     },
     {
