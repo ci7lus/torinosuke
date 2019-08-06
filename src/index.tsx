@@ -130,22 +130,27 @@ const App = () => {
                 Authorization: header,
             },
         })
-        console.log(r)
-        /*
-        await new Promise((res, rej) => {
-            auth.getOAuthAccessToken(OAuthToken, OAuthTokenSecret, pin, (err, at, ats) => {
-                if (err) {
-                    setMessage(`アクセストークンの取得に失敗しました: ${err.data || err.statusCode}`)
-                    setMessageType("danger")
-                } else {
-                    setAccessToken(at)
-                    setAccessTokenSecret(ats)
-                    clearMessage()
-                }
-                setIsResetLocked(false)
-                res()
-            })
-        })*/
+        if (r.status == 200) {
+            const result: Map<string, string> = new Map(
+                r.data.split("&").map((datum: string) => {
+                    return datum.split("=")
+                })
+            )
+            const token = result.get("oauth_token")
+            const secret = result.get("oauth_token_secret")
+            if (token && secret) {
+                setAccessToken(token)
+                setAccessTokenSecret(secret)
+                clearMessage()
+            } else {
+                setMessage(`認証には成功しましたが、アクセストークンが見つかりませんでした。`)
+                setMessageType("danger")
+            }
+        } else {
+            setMessage(`認証に失敗しました: ${r.data || r.status}`)
+            setMessageType("danger")
+        }
+        setIsResetLocked(false)
     }
 
     return (
@@ -159,7 +164,7 @@ const App = () => {
                     <label className="label">認証モード</label>
                     <div className="buttons has-addons">
                         <span
-                            className={`button ${!useXAuth && "is-primary is-selected"}`}
+                            className={`button ${!useXAuth && "is-primary is-selected"} ${isConsumerLocked && "is-disabled"}`}
                             onClick={() => {
                                 setUseXAuth(false)
                             }}
@@ -167,7 +172,7 @@ const App = () => {
                             PIN Auth
                         </span>
                         <span
-                            className={`button ${useXAuth && "is-warning is-selected"}`}
+                            className={`button ${useXAuth && "is-warning is-selected"} ${isConsumerLocked && "is-disabled"}`}
                             onClick={() => {
                                 setUseXAuth(true)
                             }}
