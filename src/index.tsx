@@ -91,6 +91,7 @@ const App = () => {
                 setMessage(`認証に失敗しました: ${r.data || r.status}`)
                 setMessageType("danger")
             }
+            setIsConsumerLocked(false)
         } else {
             const header = auth.authHeader("https://api.twitter.com/oauth/request_token", "", "", "POST")
             const r = await client.post("/oauth/request_token", null, {
