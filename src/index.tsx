@@ -386,7 +386,7 @@ const App = () => {
                                         やりなおす
                                     </button>
                                 </div>
-                                <div className={`dropdown is-right is-up is-hoverable`}>
+                                <div className={`dropdown is-right is-up ${!isConsumerLocked && "is-hoverable"}`}>
                                     <div className="dropdown-trigger">
                                         <button
                                             className="button"
