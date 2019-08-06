@@ -45,32 +45,53 @@ const App = () => {
         setAppSelectorExtended(false)
         setIsConsumerLocked(true)
         setIsResetLocked(true)
+        const auth = new OAuth(
+            "https://twitter.com/oauth/request_token",
+            "https://twitter.com/oauth/access_token",
+            consumerKey,
+            consumerSecret,
+            "1.0a",
+            "oob",
+            "HMAC-SHA1"
+        )
         if (useXAuth) {
-            const r = await client.post("/api/xauth", {
-                ck: consumerKey,
-                cs: consumerSecret,
-                sn: screenName,
-                pw: password,
+            const form = new URLSearchParams({
+                x_auth_mode: "client_auth",
+                x_auth_username: screenName,
+                x_auth_password: password,
+            })
+            const header = auth.authHeader(
+                `https://twitter.com/oauth/access_token?x_auth_mode=client_auth&x_auth_username=${screenName}&x_auth_password=${password}`,
+                "",
+                "",
+                "POST"
+            )
+            const r = await client.post("/oauth/access_token", form, {
+                headers: {
+                    Authorization: header,
+                },
             })
             if (r.status == 200) {
-                setAccessToken(r.data.oauth_token)
-                setAccessTokenSecret(r.data.oauth_token_secret)
-                clearMessage()
+                const result: Map<string, string> = new Map(
+                    r.data.split("&").map((datum: string) => {
+                        return datum.split("=")
+                    })
+                )
+                const token = result.get("oauth_token")
+                const secret = result.get("oauth_token_secret")
+                if (token && secret) {
+                    setAccessToken(token)
+                    setAccessTokenSecret(secret)
+                    clearMessage()
+                } else {
+                    setMessage(`認証には成功しましたが、アクセストークンが見つかりませんでした。`)
+                    setMessageType("danger")
+                }
             } else {
-                setMessage(`XAuthに失敗しました: ${r.data}`)
+                setMessage(`認証に失敗しました: ${r.data || r.status}`)
                 setMessageType("danger")
-                setIsConsumerLocked(false)
             }
         } else {
-            const auth = new OAuth(
-                "https://twitter.com/oauth/request_token",
-                "https://twitter.com/oauth/access_token",
-                consumerKey,
-                consumerSecret,
-                "1.0a",
-                "oob",
-                "HMAC-SHA1"
-            )
             const header = auth.authHeader("https://twitter.com/oauth/request_token", "", "", "POST")
             const r = await client.post("/oauth/request_token", null, {
                 headers: {
