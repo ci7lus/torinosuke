@@ -83,13 +83,13 @@ const App = () => {
                         return datum.split("=")
                     })
                 )
-                console.log(result)
                 const token = result.get("oauth_token")
                 const secret = result.get("oauth_token_secret")
                 if (token && secret) {
                     setOAuthToken(token)
                     setOAuthTokenSecret(secret)
                     clearMessage()
+                    window.open(`https://twitter.com/oauth/authorize?oauth_token=${token}`, "_blank")
                 } else {
                     setMessage(`認証ページ情報の取得には成功しましたが、認証開始に必要なパラメータが見つかりませんでした。`)
                     setMessageType("danger")
@@ -125,7 +125,7 @@ const App = () => {
             OAuthTokenSecret,
             "POST"
         )
-        const r = await client.post("/oauth/request_token", null, {
+        const r = await client.post("/oauth/access_token", null, {
             headers: {
                 Authorization: header,
             },
