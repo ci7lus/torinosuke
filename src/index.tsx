@@ -1,6 +1,7 @@
 import * as React from "react"
 const { useState } = React
 import { render } from "react-dom"
+import { OAuth } from "oauth"
 import axios from "axios"
 
 const client = axios.create({
@@ -60,20 +61,30 @@ const App = () => {
                 setIsConsumerLocked(false)
             }
         } else {
-            const r = await client.post("/api/request_token", {
-                ck: consumerKey,
-                cs: consumerSecret,
+            const auth = new OAuth(
+                "/oauth/request_token",
+                "/oauth/access_token",
+                consumerKey,
+                consumerSecret,
+                "1.0a",
+                "oob",
+                "HMAC-SHA1"
+            )
+            await new Promise((res, rej) => {
+                auth.getOAuthRequestToken((err, token, secret) => {
+                    if (err) {
+                        setMessage(`認証ページ情報の取得に失敗しました: ${err.data || err.statusCode}`)
+                        setMessageType("danger")
+                        setIsConsumerLocked(false)
+                    } else {
+                        setOAuthToken(token)
+                        setOAuthTokenSecret(secret)
+                        window.open(`https://twitter.com/oauth/authorize?oauth_token=${token}`, "_blank")
+                        clearMessage()
+                    }
+                    res()
+                })
             })
-            if (r.status == 200) {
-                setOAuthToken(r.data.token)
-                setOAuthTokenSecret(r.data.secret)
-                window.open(`https://twitter.com/oauth/authorize?oauth_token=${r.data.token}`, "_blank")
-                clearMessage()
-            } else {
-                setMessage(`認証ページ情報の取得に失敗しました: ${r.data}`)
-                setMessageType("danger")
-                setIsConsumerLocked(false)
-            }
         }
         setIsResetLocked(false)
     }
@@ -84,22 +95,29 @@ const App = () => {
             setIsResetLocked(false)
             return
         }
-        const r = await client.post("/api/access_token", {
-            ck: consumerKey,
-            cs: consumerSecret,
-            token: OAuthToken,
-            secret: OAuthTokenSecret,
-            pin: pin,
+        const auth = new OAuth(
+            "/oauth/request_token",
+            "/oauth/access_token",
+            consumerKey,
+            consumerSecret,
+            "1.0a",
+            "oob",
+            "HMAC-SHA1"
+        )
+        await new Promise((res, rej) => {
+            auth.getOAuthAccessToken(OAuthToken, OAuthTokenSecret, pin, (err, at, ats) => {
+                if (err) {
+                    setMessage(`アクセストークンの取得に失敗しました: ${err.data || err.statusCode}`)
+                    setMessageType("danger")
+                } else {
+                    setAccessToken(at)
+                    setAccessTokenSecret(ats)
+                    clearMessage()
+                }
+                setIsResetLocked(false)
+                res()
+            })
         })
-        if (r.status == 200) {
-            setAccessToken(r.data.token)
-            setAccessTokenSecret(r.data.secret)
-            clearMessage()
-        } else {
-            setMessage(`アクセストークンの取得に失敗しました: ${r.data}`)
-            setMessageType("danger")
-        }
-        setIsResetLocked(false)
     }
 
     return (
