@@ -8,6 +8,7 @@ const client = axios.create({
     validateStatus: () => {
         return true
     },
+    responseType: "text",
 })
 
 const definedApps: { name: string; ck: string; cs: string }[] = [
@@ -62,29 +63,41 @@ const App = () => {
             }
         } else {
             const auth = new OAuth(
-                "/oauth/request_token",
-                "/oauth/access_token",
+                "https://twitter.com/oauth/request_token",
+                "https://twitter.com/oauth/access_token",
                 consumerKey,
                 consumerSecret,
                 "1.0a",
                 "oob",
                 "HMAC-SHA1"
             )
-            await new Promise((res, rej) => {
-                auth.getOAuthRequestToken((err, token, secret) => {
-                    if (err) {
-                        setMessage(`認証ページ情報の取得に失敗しました: ${err.data || err.statusCode}`)
-                        setMessageType("danger")
-                        setIsConsumerLocked(false)
-                    } else {
-                        setOAuthToken(token)
-                        setOAuthTokenSecret(secret)
-                        window.open(`https://twitter.com/oauth/authorize?oauth_token=${token}`, "_blank")
-                        clearMessage()
-                    }
-                    res()
-                })
+            const header = auth.authHeader("https://twitter.com/oauth/request_token", "", "", "POST")
+            const r = await client.post("/oauth/request_token", null, {
+                headers: {
+                    Authorization: header,
+                },
             })
+            if (r.status == 200) {
+                const result = new Map(
+                    r.data.split("&").map((datum: string) => {
+                        return datum.split("=")
+                    })
+                )
+                const token = result["oauth_token"]
+                const secret = result["oauth_token_secret"]
+                if (token && secret) {
+                    setOAuthToken(token)
+                    setOAuthTokenSecret(secret)
+                    clearMessage()
+                } else {
+                    setMessage(`認証ページ情報の取得には成功しましたが、認証開始に必要なパラメータが見つかりませんでした。`)
+                    setMessageType("danger")
+                }
+            } else {
+                setMessage(`認証ページ情報の取得に失敗しました: ${r.data || r.status}`)
+                setMessageType("danger")
+                setIsConsumerLocked(false)
+            }
         }
         setIsResetLocked(false)
     }
@@ -96,14 +109,28 @@ const App = () => {
             return
         }
         const auth = new OAuth(
-            "/oauth/request_token",
-            "/oauth/access_token",
+            "https://twitter.com/oauth/request_token",
+            "https://twitter.com/oauth/access_token",
             consumerKey,
             consumerSecret,
             "1.0a",
             "oob",
-            "HMAC-SHA1"
+            "HMAC-SHA1",
+            undefined
         )
+        const header = auth.authHeader(
+            `https://twitter.com/oauth/access_token?oauth_verifier=${pin}`,
+            OAuthToken,
+            OAuthTokenSecret,
+            "POST"
+        )
+        const r = await client.post("/oauth/request_token", null, {
+            headers: {
+                Authorization: header,
+            },
+        })
+        console.log(r)
+        /*
         await new Promise((res, rej) => {
             auth.getOAuthAccessToken(OAuthToken, OAuthTokenSecret, pin, (err, at, ats) => {
                 if (err) {
@@ -117,7 +144,7 @@ const App = () => {
                 setIsResetLocked(false)
                 res()
             })
-        })
+        })*/
     }
 
     return (

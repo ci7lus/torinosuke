@@ -1,1 +1,1 @@
-/oauth/*  https://api.twitter.com/oauth/:splat  200
+/oauth/*  https://twitter.com/oauth/:splat  200
