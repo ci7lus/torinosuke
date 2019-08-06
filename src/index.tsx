@@ -46,8 +46,8 @@ const App = () => {
         setIsConsumerLocked(true)
         setIsResetLocked(true)
         const auth = new OAuth(
-            "https://twitter.com/oauth/request_token",
-            "https://twitter.com/oauth/access_token",
+            "https://api.twitter.com/oauth/request_token",
+            "https://api.twitter.com/oauth/access_token",
             consumerKey,
             consumerSecret,
             "1.0a",
@@ -61,7 +61,7 @@ const App = () => {
                 x_auth_password: password,
             })
             const header = auth.authHeader(
-                `https://twitter.com/oauth/access_token?x_auth_mode=client_auth&x_auth_username=${screenName}&x_auth_password=${password}`,
+                `https://api.twitter.com/oauth/access_token?x_auth_mode=client_auth&x_auth_username=${screenName}&x_auth_password=${password}`,
                 "",
                 "",
                 "POST"
@@ -92,7 +92,7 @@ const App = () => {
                 setMessageType("danger")
             }
         } else {
-            const header = auth.authHeader("https://twitter.com/oauth/request_token", "", "", "POST")
+            const header = auth.authHeader("https://api.twitter.com/oauth/request_token", "", "", "POST")
             const r = await client.post("/oauth/request_token", null, {
                 headers: {
                     Authorization: header,
@@ -110,7 +110,7 @@ const App = () => {
                     setOAuthToken(token)
                     setOAuthTokenSecret(secret)
                     clearMessage()
-                    window.open(`https://twitter.com/oauth/authorize?oauth_token=${token}`, "_blank")
+                    window.open(`https://api.twitter.com/oauth/authorize?oauth_token=${token}`, "_blank")
                 } else {
                     setMessage(`認証ページ情報の取得には成功しましたが、認証開始に必要なパラメータが見つかりませんでした。`)
                     setMessageType("danger")
@@ -131,8 +131,8 @@ const App = () => {
             return
         }
         const auth = new OAuth(
-            "https://twitter.com/oauth/request_token",
-            "https://twitter.com/oauth/access_token",
+            "https://api.twitter.com/oauth/request_token",
+            "https://api.twitter.com/oauth/access_token",
             consumerKey,
             consumerSecret,
             "1.0a",
@@ -141,7 +141,7 @@ const App = () => {
             undefined
         )
         const header = auth.authHeader(
-            `https://twitter.com/oauth/access_token?oauth_verifier=${pin}`,
+            `https://api.twitter.com/oauth/access_token?oauth_verifier=${pin}`,
             OAuthToken,
             OAuthTokenSecret,
             "POST"
