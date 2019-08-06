@@ -394,7 +394,7 @@ const App = () => {
                                 <div className={`dropdown is-right is-up ${!isConsumerLocked && "is-hoverable"}`}>
                                     <div className="dropdown-trigger">
                                         <button
-                                            className="button"
+                                            className="button is-right"
                                             aria-haspopup="true"
                                             aria-controls="dropdown-menu"
                                             type="button"
