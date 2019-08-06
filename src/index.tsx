@@ -11,10 +11,79 @@ const client = axios.create({
     responseType: "text",
 })
 
-const definedApps: { name: string; ck: string; cs: string }[] = [
-    { name: "Twitter for Android", ck: "3nVuSoBZnx6U4vzUxf5w", cs: "Bcs59EFbbsdF6Sl9Ng71smgStWEGwXXKSjYvPVt7qys" },
-    { name: "Twitter for iPhone", ck: "IQKbtAYlXLripLGPWd0HUA", cs: "GgDYlkSvaPxGxC4X8liwpUoqKwwr3lCADbz8A7ADU" },
-    { name: "Twitter for iPad", ck: "CjulERsDeqhhjSme66ECg", cs: "IQWdVyqFxghAtURHGeGiWAsmCAGmdW3WmbEx6Hck" },
+const definedApps: { name: string; ck: string; cs: string; official: boolean; deprecated: boolean; isPin: boolean }[] = [
+    {
+        name: "Twitter for Android",
+        ck: "3nVuSoBZnx6U4vzUxf5w",
+        cs: "Bcs59EFbbsdF6Sl9Ng71smgStWEGwXXKSjYvPVt7qys",
+        official: true,
+        deprecated: false,
+        isPin: false,
+    },
+    {
+        name: "Twitter for iPad",
+        ck: "CjulERsDeqhhjSme66ECg",
+        cs: "IQWdVyqFxghAtURHGeGiWAsmCAGmdW3WmbEx6Hck",
+        official: true,
+        deprecated: false,
+        isPin: false,
+    },
+    {
+        name: "Twitter for iPhone",
+        ck: "IQKbtAYlXLripLGPWd0HUA",
+        cs: "GgDYlkSvaPxGxC4X8liwpUoqKwwr3lCADbz8A7ADU",
+        official: true,
+        deprecated: true,
+        isPin: false,
+    },
+    {
+        name: "TweetDeck",
+        ck: "yT577ApRtZw51q4NPMPPOQ",
+        cs: "3neq3XqN5fO3obqwZoajavGFCUrC42ZfbrLXy5sCv8",
+        official: true,
+        deprecated: true,
+        isPin: false,
+    },
+    {
+        name: "Twitter for Mac",
+        ck: "3rJOl1ODzm9yZy63FACdg",
+        cs: "5jPoQ5kQvMJFDYRNE8bQ4rHuds4xJqhvgNJM4awaE8",
+        official: true,
+        deprecated: true,
+        isPin: true,
+    },
+    {
+        name: "Twitter for Windows Phone",
+        ck: "yN3DUNVO0Me63IAQdhTfCA",
+        cs: "c768oTKdzAjIYCmpSNIdZbGaG0t6rOhSFQP0S5uC79g",
+        official: true,
+        deprecated: true,
+        isPin: true,
+    },
+    {
+        name: "Twitter for Google TV",
+        ck: "iAtYJ4HpUVfIUoNnif1DA",
+        cs: "172fOpzuZoYzNYaU3mMYvE8m8MEyLbztOdbrUolU",
+        official: true,
+        deprecated: true,
+        isPin: true,
+    },
+    {
+        name: "Twitter for Windows",
+        ck: "TgHNMa7WZE7Cxi1JbkAMQ",
+        cs: "SHy9mBMBPNj3Y17et9BF4g5XeqS4y3vkeW24PttDcY",
+        official: true,
+        deprecated: true,
+        isPin: false,
+    },
+    {
+        name: "Twitter for Android Sign-Up",
+        ck: "RwYLhxGZpMqsWZENFVw",
+        cs: "Jk80YVGqc7Iz1IDEjCI6x3ExMSBnGjzBAH6qHcWJlo",
+        official: true,
+        deprecated: true,
+        isPin: true,
+    },
 ]
 
 const App = () => {
@@ -25,7 +94,6 @@ const App = () => {
     const [consumerSecret, setConsumerSecret] = useState("")
     const [isConsumerLocked, setIsConsumerLocked] = useState(false)
     const [isResetLocked, setIsResetLocked] = useState(false)
-    const [appSelectorExtended, setAppSelectorExtended] = useState(false)
     const [isDefinedApp, setIsDefinedApp] = useState(false)
     const [screenName, setScreenName] = useState("")
     const [password, setPassword] = useState("")
@@ -42,7 +110,6 @@ const App = () => {
 
     const onApplicationSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        setAppSelectorExtended(false)
         setIsConsumerLocked(true)
         setIsResetLocked(true)
         const auth = new OAuth(
@@ -178,44 +245,44 @@ const App = () => {
     return (
         <div className="section">
             <div className="container">
-                <h1 className="title">Twitter OAuth Helper</h1>
-                <p>Twitter の OAuth をするためのツールです。</p>
+                <h1 className="title">Torinosuke</h1>
+                <p>手っ取り早く Twitter の OAuth でアクセストークンを発行するためのツールです。</p>
                 <hr></hr>
                 {0 < message.length && <div className={`notification is-${messageType}`}>{message}</div>}
-                <div className="box">
-                    <label className="label">認証モード</label>
-                    <div className="buttons has-addons">
-                        <span
-                            className={`button ${!useXAuth && "is-primary is-selected"} ${isConsumerLocked && "is-disabled"}`}
-                            onClick={() => {
-                                setUseXAuth(false)
-                            }}
-                        >
-                            PIN Auth
-                        </span>
-                        <span
-                            className={`button ${useXAuth && "is-warning is-selected"} ${isConsumerLocked && "is-disabled"}`}
-                            onClick={() => {
-                                setUseXAuth(true)
-                            }}
-                        >
-                            XAuth
-                        </span>
-                    </div>
-                    {useXAuth && (
-                        <div className="notification">
-                            XAuth
-                            は公式アプリの情報を用いて認証を試みるときのみ用いることができるモードです。Twitterのユーザー名（スクリーンネーム）とパスワードを用いて認証をします。当サービスはこの情報をできる限り保持しないように作っていますが、利用はあまりおすすめできません。
-                            <br />
-                            また、XAuth での認証には基本的に一時パスワード（仮コード）を用います。
-                        </div>
-                    )}
-                </div>
                 <div className="card">
                     <div className="card-header">
                         <div className="card-header-title">アプリケーションを設定する</div>
                     </div>
                     <div className="card-content">
+                        <label className="label">認証モード</label>
+                        <div className="buttons has-addons">
+                            <span
+                                className={`button ${!useXAuth && "is-primary is-selected"} ${isConsumerLocked &&
+                                    "is-disabled"}`}
+                                onClick={() => {
+                                    setUseXAuth(false)
+                                }}
+                            >
+                                PIN Auth
+                            </span>
+                            <span
+                                className={`button ${useXAuth && "is-warning is-selected"} ${isConsumerLocked &&
+                                    "is-disabled"}`}
+                                onClick={() => {
+                                    setUseXAuth(true)
+                                }}
+                            >
+                                XAuth
+                            </span>
+                        </div>
+                        {useXAuth && (
+                            <div className="notification">
+                                XAuth
+                                は公式アプリの情報を用いて認証を試みるときのみ用いることができるモードです。Twitterのユーザー名（スクリーンネーム）とパスワードを用いて認証をします。当サービスはこの情報をできる限り保持しないように作っていますが、利用はあまりおすすめできません。
+                                <br />
+                                また、XAuth での認証には基本的に一時パスワード（仮コード）を用います。
+                            </div>
+                        )}
                         <form onSubmit={onApplicationSubmit}>
                             <div className="field">
                                 <label className="label">コンシューマーキー</label>
@@ -318,9 +385,7 @@ const App = () => {
                                         やりなおす
                                     </button>
                                 </div>
-                                <div
-                                    className={`dropdown is-right is-up ${appSelectorExtended && "is-active"} dropdown-padding`}
-                                >
+                                <div className={`dropdown is-right is-up is-hoverable`}>
                                     <div className="dropdown-trigger">
                                         <button
                                             className="button"
@@ -328,9 +393,6 @@ const App = () => {
                                             aria-controls="dropdown-menu"
                                             type="button"
                                             disabled={isConsumerLocked}
-                                            onClick={() => {
-                                                setAppSelectorExtended(!appSelectorExtended)
-                                            }}
                                         >
                                             <span>定義済みアプリから選ぶ</span>
                                             <span className="icon is-small">
@@ -349,10 +411,14 @@ const App = () => {
                                                             setConsumerKey(app.ck)
                                                             setConsumerSecret(app.cs)
                                                             setIsDefinedApp(true)
-                                                            setAppSelectorExtended(false)
                                                         }
                                                     }}
                                                 >
+                                                    {app.isPin && <span className="tag is-success is-normal">PIN</span>}{" "}
+                                                    {app.official && <span className="tag is-link is-normal">Official</span>}{" "}
+                                                    {app.deprecated && (
+                                                        <span className="tag is-danger is-normal">deprecated</span>
+                                                    )}{" "}
                                                     {app.name}
                                                 </a>
                                             ))}
