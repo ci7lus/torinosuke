@@ -3,7 +3,6 @@ const { useState } = React
 import { render } from "react-dom"
 import { OAuth } from "oauth"
 import axios from "axios"
-import "@fortawesome/fontawesome-free/js/solid"
 
 const client = axios.create({
     validateStatus: () => {
