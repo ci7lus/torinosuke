@@ -114,6 +114,15 @@ const App = () => {
         setMessageType("")
     }
 
+    const onResetClick = () => {
+        setIsConsumerLocked(false)
+        setOAuthToken("")
+        setOAuthTokenSecret("")
+        setAccessToken("")
+        setAccessTokenSecret("")
+        setPin("")
+    }
+
     const onApplicationSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         setIsConsumerLocked(true)
@@ -381,12 +390,7 @@ const App = () => {
                                         className="button is-danger"
                                         type="reset"
                                         disabled={isResetLocked}
-                                        onClick={() => {
-                                            setIsConsumerLocked(false)
-                                            setAccessToken("")
-                                            setAccessTokenSecret("")
-                                            setPin("")
-                                        }}
+                                        onClick={onResetClick}
                                     >
                                         やりなおす
                                     </button>
