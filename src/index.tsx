@@ -175,6 +175,7 @@ const App = () => {
             } else {
                 setMessage(`認証に失敗しました: ${JSON.stringify(r.data) || r.status}`)
                 setMessageType("danger")
+                setIsConsumerLocked(false)
             }
         } else {
             setIsOAuthTokenGetting(true)
