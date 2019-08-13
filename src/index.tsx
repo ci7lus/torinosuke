@@ -490,7 +490,7 @@ const App = () => {
                                 <div>
                                     <button
                                         className={`button is-info ${isPinUsing && "is-loading"}`}
-                                        disabled={!isConsumerLocked || Boolean(accessToken.length)}
+                                        disabled={!isConsumerLocked || Boolean(accessToken.length) || isPinUsing}
                                         type="submit"
                                     >
                                         認証情報を取得
