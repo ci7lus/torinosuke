@@ -280,24 +280,24 @@ const App = () => {
                     <div className="card-content">
                         <label className="label">認証モード</label>
                         <div className="buttons has-addons">
-                            <span
-                                className={`button ${!useXAuth && "is-primary is-selected"} ${isConsumerLocked &&
-                                    "is-disabled"}`}
+                            <button
+                                className={`button ${!useXAuth && "is-primary is-selected"}`}
+                                disabled={isConsumerLocked}
                                 onClick={() => {
                                     setUseXAuth(false)
                                 }}
                             >
                                 PIN Auth
-                            </span>
-                            <span
-                                className={`button ${useXAuth && "is-warning is-selected"} ${isConsumerLocked &&
-                                    "is-disabled"}`}
+                            </button>
+                            <button
+                                className={`button ${useXAuth && "is-warning is-selected"}`}
+                                disabled={isConsumerLocked}
                                 onClick={() => {
                                     setUseXAuth(true)
                                 }}
                             >
                                 XAuth
-                            </span>
+                            </button>
                         </div>
                         {useXAuth && (
                             <div className="notification">
