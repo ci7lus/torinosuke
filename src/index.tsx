@@ -106,6 +106,9 @@ const App = () => {
     const [OAuthToken, setOAuthToken] = useState("")
     const [OAuthTokenSecret, setOAuthTokenSecret] = useState("")
 
+    const [isPinUsing, setIsPinUsing] = useState(false)
+    const [isOAuthTokenGetting, setIsOAuthTokenGetting] = useState(false)
+
     const [accessToken, setAccessToken] = useState("")
     const [accessTokenSecret, setAccessTokenSecret] = useState("")
 
@@ -175,6 +178,7 @@ const App = () => {
             }
             setIsConsumerLocked(false)
         } else {
+            setIsOAuthTokenGetting(true)
             const header = auth.authHeader("https://api.twitter.com/oauth/request_token", "", "", "POST")
             const r = await client.post("/oauth/request_token", null, {
                 headers: {
@@ -203,11 +207,13 @@ const App = () => {
                 setMessageType("danger")
                 setIsConsumerLocked(false)
             }
+            setIsOAuthTokenGetting(false)
         }
         setIsResetLocked(false)
     }
     const onPinSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        setIsPinUsing(true)
         setIsResetLocked(true)
         if (!OAuthToken.length || !OAuthTokenSecret.length || !pin.length) {
             setIsResetLocked(false)
@@ -245,6 +251,8 @@ const App = () => {
             if (token && secret) {
                 setAccessToken(token)
                 setAccessTokenSecret(secret)
+                setOAuthToken("")
+                setOAuthTokenSecret("")
                 clearMessage()
             } else {
                 setMessage(`認証には成功しましたが、アクセストークンが見つかりませんでした。`)
@@ -255,6 +263,7 @@ const App = () => {
             setMessageType("danger")
         }
         setIsResetLocked(false)
+        setIsPinUsing(false)
     }
 
     return (
@@ -383,7 +392,11 @@ const App = () => {
                             )}
                             <div className="app-buttons">
                                 <div className="buttons">
-                                    <button className="button is-info" type="submit" disabled={isConsumerLocked}>
+                                    <button
+                                        className={`button is-info ${isOAuthTokenGetting && "is-loading"}`}
+                                        type="submit"
+                                        disabled={isConsumerLocked}
+                                    >
                                         認証
                                     </button>
                                     <button
@@ -476,7 +489,7 @@ const App = () => {
                                 </div>
                                 <div>
                                     <button
-                                        className="button is-info"
+                                        className={`button is-info ${isPinUsing && "is-loading"}`}
                                         disabled={!isConsumerLocked || Boolean(accessToken.length)}
                                         type="submit"
                                     >
