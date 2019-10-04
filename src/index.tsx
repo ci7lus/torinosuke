@@ -368,12 +368,14 @@ const App: React.FC<{}> = () => {
                                                         {app.name}&nbsp;
                                                         {app.isPin && (
                                                             <span className="tag is-success is-normal is-right">PIN</span>
-                                                        )}&nbsp;
-                                                        {app.official && (
+                                                        )}
+                                                        &nbsp;
+                                                        {app.isOfficial && (
                                                             <span className="tag is-link is-normal">Official</span>
-                                                        )}&nbsp;
-                                                        {app.deprecated && (
-                                                            <span className="tag is-danger is-normal">deprecated</span>
+                                                        )}
+                                                        &nbsp;
+                                                        {app.isDeprecated && (
+                                                            <span className="tag is-danger is-normal">Deprecated</span>
                                                         )}
                                                     </a>
                                                 ))}
@@ -475,8 +477,8 @@ const App: React.FC<{}> = () => {
                         <strong>torinosuke</strong> made with <i className="fas fa-heart" aria-hidden="true"></i>.<br />
                         <a href="https://github.com/motitaiyaki/torinosuke" target="_blank">
                             source code
-                        </a>&nbsp;
-                        is licensed&nbsp;
+                        </a>
+                        &nbsp; is licensed&nbsp;
                         <a href="http://opensource.org/licenses/mit-license.php" target="_blank">
                             MIT
                         </a>
