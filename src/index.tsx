@@ -473,8 +473,14 @@ const App = () => {
                 <div className="content has-text-centered">
                     <p>
                         <strong>torinosuke</strong> made with <i className="fas fa-heart" aria-hidden="true"></i>.<br />
-                        <a href="https://github.com/motitaiyaki/torinosuke">source code</a> is licensed{" "}
-                        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+                        <a href="https://github.com/motitaiyaki/torinosuke" target="_blank">
+                            source code
+                        </a>{" "}
+                        is licensed{" "}
+                        <a href="http://opensource.org/licenses/mit-license.php" target="_blank">
+                            MIT
+                        </a>
+                        .
                     </p>
                 </div>
             </footer>
