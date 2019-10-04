@@ -36,7 +36,7 @@ export const apps: { name: string; ck: string; cs: string; official: boolean; de
         ck: "3rJOl1ODzm9yZy63FACdg",
         cs: "5jPoQ5kQvMJFDYRNE8bQ4rHuds4xJqhvgNJM4awaE8",
         official: true,
-        deprecated: true,
+        deprecated: false,
         isPin: true,
     },
     {
