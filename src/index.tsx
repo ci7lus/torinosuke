@@ -365,13 +365,13 @@ const App: React.FC<{}> = () => {
                                                             }
                                                         }}
                                                     >
-                                                        {app.name}{" "}
+                                                        {app.name}&nbsp;
                                                         {app.isPin && (
                                                             <span className="tag is-success is-normal is-right">PIN</span>
-                                                        )}{" "}
+                                                        )}&nbsp;
                                                         {app.official && (
                                                             <span className="tag is-link is-normal">Official</span>
-                                                        )}{" "}
+                                                        )}&nbsp;
                                                         {app.deprecated && (
                                                             <span className="tag is-danger is-normal">deprecated</span>
                                                         )}
@@ -475,8 +475,8 @@ const App: React.FC<{}> = () => {
                         <strong>torinosuke</strong> made with <i className="fas fa-heart" aria-hidden="true"></i>.<br />
                         <a href="https://github.com/motitaiyaki/torinosuke" target="_blank">
                             source code
-                        </a>{" "}
-                        is licensed{" "}
+                        </a>&nbsp;
+                        is licensed&nbsp;
                         <a href="http://opensource.org/licenses/mit-license.php" target="_blank">
                             MIT
                         </a>
