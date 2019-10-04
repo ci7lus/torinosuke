@@ -17,4 +17,4 @@ PIN Auth と XAuth 両方のモードが使用できます。
 
 ## 免責事項
 
-https://torinosuke.netlify.com/ にて公開されている torinosuke は [dist/\_redirects](./dist/_redirects) からもわかるように Netlify のルーティングを用いて Twitter 側の API に直接リクエストしているため、ホスト主である開発者はそこを通過した情報を把握することはできません。しかし、極力 XAuth を用いるのは避けたほうがいいと思います。
+https://torinosuke.netlify.com/ にて公開されている torinosuke は [dist/\_redirects](./dist/_redirects) からもわかるように Netlify のルーティングを用いて Twitter 側の API に直接リクエストしているため、ホスト主である開発者はそこを通過した情報を把握することはできません。しかし、極力 XAuth を用いるのは避けるようにしてください。
