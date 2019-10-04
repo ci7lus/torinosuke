@@ -3,6 +3,7 @@ const { useState } = React
 import { render } from "react-dom"
 import { OAuth } from "oauth"
 import axios from "axios"
+import { apps } from "./apps"
 
 const client = axios.create({
     validateStatus: () => {
@@ -11,82 +12,8 @@ const client = axios.create({
     responseType: "text",
 })
 
-const definedApps: { name: string; ck: string; cs: string; official: boolean; deprecated: boolean; isPin: boolean }[] = [
-    {
-        name: "Twitter for Android",
-        ck: "3nVuSoBZnx6U4vzUxf5w",
-        cs: "Bcs59EFbbsdF6Sl9Ng71smgStWEGwXXKSjYvPVt7qys",
-        official: true,
-        deprecated: false,
-        isPin: false,
-    },
-    {
-        name: "Twitter for iPad",
-        ck: "CjulERsDeqhhjSme66ECg",
-        cs: "IQWdVyqFxghAtURHGeGiWAsmCAGmdW3WmbEx6Hck",
-        official: true,
-        deprecated: false,
-        isPin: false,
-    },
-    {
-        name: "Twitter for iPhone",
-        ck: "IQKbtAYlXLripLGPWd0HUA",
-        cs: "GgDYlkSvaPxGxC4X8liwpUoqKwwr3lCADbz8A7ADU",
-        official: true,
-        deprecated: false,
-        isPin: false,
-    },
-    {
-        name: "TweetDeck",
-        ck: "yT577ApRtZw51q4NPMPPOQ",
-        cs: "3neq3XqN5fO3obqwZoajavGFCUrC42ZfbrLXy5sCv8",
-        official: true,
-        deprecated: false,
-        isPin: false,
-    },
-    {
-        name: "Twitter for Mac",
-        ck: "3rJOl1ODzm9yZy63FACdg",
-        cs: "5jPoQ5kQvMJFDYRNE8bQ4rHuds4xJqhvgNJM4awaE8",
-        official: true,
-        deprecated: true,
-        isPin: true,
-    },
-    {
-        name: "Twitter for Windows Phone",
-        ck: "yN3DUNVO0Me63IAQdhTfCA",
-        cs: "c768oTKdzAjIYCmpSNIdZbGaG0t6rOhSFQP0S5uC79g",
-        official: true,
-        deprecated: true,
-        isPin: true,
-    },
-    {
-        name: "Twitter for Google TV",
-        ck: "iAtYJ4HpUVfIUoNnif1DA",
-        cs: "172fOpzuZoYzNYaU3mMYvE8m8MEyLbztOdbrUolU",
-        official: true,
-        deprecated: true,
-        isPin: true,
-    },
-    {
-        name: "Twitter for Windows",
-        ck: "TgHNMa7WZE7Cxi1JbkAMQ",
-        cs: "SHy9mBMBPNj3Y17et9BF4g5XeqS4y3vkeW24PttDcY",
-        official: true,
-        deprecated: true,
-        isPin: false,
-    },
-    {
-        name: "Twitter for Android Sign-Up",
-        ck: "RwYLhxGZpMqsWZENFVw",
-        cs: "Jk80YVGqc7Iz1IDEjCI6x3ExMSBnGjzBAH6qHcWJlo",
-        official: true,
-        deprecated: true,
-        isPin: true,
-    },
-]
-
 const App = () => {
+    // ぎゃー！
     const [message, setMessage] = useState("")
     const [messageType, setMessageType] = useState("")
 
@@ -425,7 +352,7 @@ const App = () => {
                                     </div>
                                     <div className="dropdown-menu" id="dropdown-menu" role="menu">
                                         <div className="dropdown-content">
-                                            {definedApps.map(app => (
+                                            {apps.map(app => (
                                                 <a
                                                     key={app.name}
                                                     className="dropdown-item"
