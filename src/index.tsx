@@ -12,7 +12,7 @@ const client = axios.create({
     responseType: "text",
 })
 
-const App = () => {
+const App: React.FC<{}> = () => {
     // ぎゃー！
     const [message, setMessage] = useState("")
     const [messageType, setMessageType] = useState("")
