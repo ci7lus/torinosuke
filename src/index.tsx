@@ -478,7 +478,7 @@ const App: React.FC<{}> = () => {
                         <a href="https://github.com/motitaiyaki/torinosuke" target="_blank">
                             source code
                         </a>
-                        &nbsp; is licensed&nbsp;
+                        &nbsp;is licensed&nbsp;
                         <a href="http://opensource.org/licenses/mit-license.php" target="_blank">
                             MIT
                         </a>
