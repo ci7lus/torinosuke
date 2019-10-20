@@ -475,7 +475,7 @@ const App: React.FC<{}> = () => {
                 <div className="content has-text-centered">
                     <p>
                         <strong>torinosuke</strong> made with <i className="fas fa-heart" aria-hidden="true"></i>.<br />
-                        <a href="https://github.com/motitaiyaki/torinosuke" target="_blank">
+                        <a href="https://github.com/ci7lus/torinosuke" target="_blank">
                             source code
                         </a>
                         &nbsp;is licensed&nbsp;
