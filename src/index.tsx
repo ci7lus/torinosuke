@@ -83,7 +83,7 @@ const App: React.FC<{}> = () => {
                     Authorization: header,
                 },
             })
-            if (r.status == 200) {
+            if (r.status === 200) {
                 const result: Map<string, string> = new Map(
                     r.data.split("&").map((datum: string) => {
                         return datum.split("=")
@@ -112,7 +112,7 @@ const App: React.FC<{}> = () => {
                     Authorization: header,
                 },
             })
-            if (r.status == 200) {
+            if (r.status === 200) {
                 const result: Map<string, string> = new Map(
                     r.data.split("&").map((datum: string) => {
                         return datum.split("=")
@@ -167,7 +167,7 @@ const App: React.FC<{}> = () => {
                 Authorization: header,
             },
         })
-        if (r.status == 200) {
+        if (r.status === 200) {
             const result: Map<string, string> = new Map(
                 r.data.split("&").map((datum: string) => {
                     return datum.split("=")
