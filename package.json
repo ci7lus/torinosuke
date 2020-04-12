@@ -7,9 +7,9 @@
         "@types/oauth": "^0.9.1",
         "@types/react": "^16.8.24",
         "@types/react-dom": "^16.8.5",
-        "bulma": "^0.7.5",
+        "bulma": "^0.8.2",
         "parcel-bundler": "^1.12.4",
-        "prettier": "^1.18.2",
+        "prettier": "^2.0.4",
         "typescript": "^3.5.3"
     },
     "dependencies": {
