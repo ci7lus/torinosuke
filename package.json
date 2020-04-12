@@ -20,6 +20,8 @@
     },
     "scripts": {
         "start": "parcel src/index.html",
-        "build": "parcel build src/index.html"
+        "build": "parcel build src/index.html",
+        "format": "prettier './src/**/*.{ts,css,tsx,html}' --write",
+        "lint:prettier": "prettier --check './src/**/*.{ts,css,tsx,html}'"
     }
 }
