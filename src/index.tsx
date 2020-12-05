@@ -4,6 +4,7 @@ import { render } from "react-dom"
 import { OAuth } from "oauth"
 import axios from "axios"
 import { apps } from "./apps"
+import { ChevronUp, Heart } from "react-feather"
 
 const client = axios.create({
   validateStatus: () => {
@@ -383,7 +384,7 @@ const App: React.FC<{}> = () => {
                       >
                         <span>定義済みアプリから選ぶ</span>
                         <span className="icon is-small">
-                          <i className="fas fa-angle-up" aria-hidden="true"></i>
+                          <ChevronUp />
                         </span>
                       </button>
                     </div>
@@ -532,8 +533,7 @@ const App: React.FC<{}> = () => {
       <footer className="footer">
         <div className="content has-text-centered">
           <p>
-            <strong>torinosuke</strong> made with{" "}
-            <i className="fas fa-heart" aria-hidden="true"></i>.<br />
+            <strong>torinosuke</strong> made with <Heart size="12" />.<br />
             <a href="https://github.com/ci7lus/torinosuke" target="_blank">
               source code
             </a>

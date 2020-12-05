@@ -1,30 +1,30 @@
 {
-    "name": "torinosuke",
-    "version": "1.0.0",
-    "license": "MIT",
-    "devDependencies": {
-        "@fortawesome/fontawesome-free": "^5.10.1",
-        "@types/oauth": "^0.9.1",
-        "@types/react": "^16.8.24",
-        "@types/react-dom": "^16.8.5",
-        "autoprefixer": "^9.7.6",
-        "bulma": "^0.8.2",
-        "parcel-bundler": "^1.12.4",
-        "parcel-plugin-purgecss": "^2.1.3",
-        "postcss-modules": "^1.5.0",
-        "prettier": "^2.0.4",
-        "typescript": "^3.5.3"
-    },
-    "dependencies": {
-        "axios": "^0.19.0",
-        "oauth": "^0.9.15",
-        "react": "^16.8.6",
-        "react-dom": "^16.8.6"
-    },
-    "scripts": {
-        "start": "parcel src/index.html",
-        "build": "parcel build src/index.html",
-        "format": "prettier './src/**/*.{ts,css,tsx,html}' --write",
-        "lint:prettier": "prettier --check './src/**/*.{ts,css,tsx,html}'"
-    }
+  "name": "torinosuke",
+  "version": "1.0.0",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/oauth": "^0.9.1",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "autoprefixer": "^10.0.4",
+    "bulma": "^0.9.1",
+    "parcel": "^2.0.0-nightly.466",
+    "parcel-plugin-purgecss": "^3.0.0",
+    "postcss": "^8.1.14",
+    "prettier": "^2.2.1",
+    "react-feather": "^2.0.9",
+    "typescript": "^4.1.2"
+  },
+  "dependencies": {
+    "axios": "^0.21.0",
+    "oauth": "^0.9.15",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html",
+    "format": "prettier './src/**/*.{ts,css,tsx,html}' --write",
+    "lint:prettier": "prettier --check './src/**/*.{ts,css,tsx,html}'"
+  }
 }
