@@ -110,7 +110,7 @@ const App: React.FC<{}> = () => {
     } else {
       setIsOAuthTokenGetting(true)
       const header = auth.authHeader(
-        "https://api.twitter.com/oauth/request_token",
+        "https://api.twitter.com/oauth/request_token?oauth_callback=oob",
         "",
         "",
         "POST"
