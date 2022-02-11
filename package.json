@@ -13,6 +13,7 @@
     "prettier": "^2.5.1",
     "react-feather": "^2.0.9",
     "typescript": "^4.5.5",
+    "url": "^0.11.0",
     "vite": "^2.8.0",
     "vite-plugin-html-purgecss": "^0.1.1"
   },
